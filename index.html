@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой блог</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
 
+    <!-- Подключение шрифта Pudelinka -->
+    <style>
+        @font-face {
+            font-family: 'Pudelinka';
+            src: url('Pudelinka.ttf') format('truetype');
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .new-year-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .new-year-section h2 {
+            font-family: 'Pudelinka', cursive;
+            font-size: 2.2em;
+            color: #d42a2a;
+        }
+
+        .new-year-section p {
+            font-family: 'Pudelinka', cursive;
+            font-size: 1.4em;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .visit-tag {
+            display: inline-block;
+            background: #ffeaa7;
+            color: #d63031;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            margin: 12px 0;
+            font-family: 'Pudelinka', cursive;
+        }
+
+        .video-container {
+            margin: 20px auto;
+            max-width: 600px;
+            cursor: pointer;
+        }
+
+        .video-container img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .video-container img:hover {
+            transform: scale(1.03);
+        }
+
+        .video-caption {
+            font-family: 'Pudelinka', cursive;
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<blockquote class="q">Путешествие в тысячу миль начинается с одного шага (Лао Цзы)</blockquote>
+
+<!-- Добавлено: посещение-2 с датой -->
+<div class="visit-tag">посещение-2 — 20.12.2025</div>
+
+<!-- Новая секция: Новый год 2026 с колядкой и видео -->
+<div class="new-year-section">
+    <h2>С Новым годом 2026!</h2>
+
+    <p>
+        Под ёлкой светят огоньки,<br>
+        В окне мороз рисует сны.<br>
+        Звезда ведёт путей вершины —<br>
+        Новый год приходит к нам!
+    </p>
+
+    <div class="video-container">
+        <img src="https://i.imgur.com/9WYx7Zb.jpg  " alt="Нажмите, чтобы посмотреть видео" id="video-trigger">
+        <div class="video-caption">👉 Нажмите на картинку, чтобы открыть праздничное видео</div>
+    </div>
+</div>
+
+<h2>1 декабря, 2025</h2>
+<img src="Icons/newyear2026.png" alt="Новый год">
+<p>Поздравление с Наступающим 2026 годом читайте <a href="Congratulations2026.html">здесь</a>.</p>
+
+<h2>15 октября, 2025</h2>
+<p>
+    Я сделала Новогодние кроссворды для сайта <a href="http://адрес-сайта-друга" title="Блог моего друга">Сайт моего друга</a>
+</p>
+
+<h2>1 сентября, 2025</h2>
+<blockquote>Путешествие в тысячу миль начинается с одного шага (Лао Цзы)</blockquote>
+<p>
+    Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.
+</p>
+
+<a href="https://www.flaticon.com/ru/free-icons/2026  " title="2026 иконки">2026 иконки от Freepik - Flaticon</a>
+
+<script>
+    // Клик по изображению → открывает видео в новой вкладке
+    document.getElementById('video-trigger').addEventListener('click', function() {
+        window.open('https://example.com/video.mp4  ', '_blank');
+    });
+</script>
+
+</body>
+</html>
