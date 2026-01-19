@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Новогодний кроссворд</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #0a3d15, #1d5b2a);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255,215,0,0.7);
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .crossword {
+      background-color: #0f2a0f;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(15, 30px);
+      grid-template-rows: repeat(15, 30px);
+      gap: 1px;
+      margin: 0 auto;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background: #1a471a;
+      border: 1px solid #4caf50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: relative;
+      color: white;
+    }
+    .cell.black {
+      background: #000;
+    }
+    .cell .number {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 10px;
+      color: #ffd700;
+    }
+    .clues {
+      background-color: #0f2a0f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      max-width: 350px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    .clues h2 {
+      color: #ffd700;
+      margin-top: 0;
+    }
+    .clue {
+      margin: 8px 0;
+    }
+    .clue-number {
+      display: inline-block;
+      width: 20px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎄 Новогодний кроссворд 🎄</h1>
+  <div class="container">
+    <div class="crossword">
+      <div class="grid" id="crosswordGrid"></div>
+    </div>
+    <div class="clues">
+      <h2>По горизонтали:</h2>
+      <div class="clue"><span class="clue-number">1.</span> Главный новогодний персонаж с посохом и мешком</div>
+      <div class="clue"><span class="clue-number">4.</span> Весёлая детская "стрелялка", создающая хлопок</div>
+      <div class="clue"><span class="clue-number">6.</span> Торжественное событие, отмечаемое с ёлкой и подарками</div>
+      <div class="clue"><span class="clue-number">8.</span> Новогоднее дерево с игрушками</div>
+      <div class="clue"><span class="clue-number">9.</span> То, что падает зимой и из чего лепят снеговиков</div>
+      <div class="clue"><span class="clue-number">11.</span> Взрывные огненные шоу в небе в полночь</div>
+      <div class="clue"><span class="clue-number">13.</span> Волшебная помощница Деда Мороза</div>
+
+      <h2>По вертикали:</h2>
+      <div class="clue"><span class="clue-number">1.</span> Звон часов в полночь, возвещающий Новый год</div>
+      <div class="clue"><span class="clue-number">2.</span> Украшение для ёлки или комнаты из лампочек</div>
+      <div class="clue"><span class="clue-number">3.</span> То, что Дед Мороз кладёт под ёлку</div>
+    </div>
+  </div>
+
+  <script>
+    // Слова и их позиции в сетке (без пробелов)
+    const words = {
+      // Горизонтальные
+      1: { word: "ДЕДМОРОЗ", x: 0, y: 0, dir: "h", clue: "Главный новогодний персонаж с посохом и мешком" },
+      4: { word: "ХЛОПУШКИ", x: 3, y: 3, dir: "h", clue: "Весёлая детская \"стрелялка\", создающая хлопок" },
+      6: { word: "ПРАЗДНИК", x: 1, y: 5, dir: "h", clue: "Торжественное событие, отмечаемое с ёлкой и подарками" },
+      8: { word: "ЕЛКА", x: 6, y: 7, dir: "h", clue: "Новогоднее дерево с игрушками" },
+      9: { word: "СНЕГ", x: 2, y: 9, dir: "h", clue: "То, что падает зимой и из чего лепят снеговиков" },
+      11: { word: "САЛЮТ", x: 5, y: 11, dir: "h", clue: "Взрывные огненные шоу в небе в полночь" },
+      13: { word: "СНЕГУРОЧКА", x: 0, y: 13, dir: "h", clue: "Волшебная помощница Деда Мороза" },
+
+      // Вертикальные
+      1: { word: "БОЙКУРАНТОВ", x: 0, y: 0, dir: "v", clue: "Звон часов в полночь, возвещающий Новый год" },
+      2: { word: "ГИРЛЯНДА", x: 2, y: 0, dir: "v", clue: "Украшение для ёлки или комнаты из лампочек" },
+      3: { word: "ПОДАРКИ", x: 4, y: 0, dir: "v", clue: "То, что Дед Мороз кладёт под ёлку" }
+    };
+
+    // Создаём пустую сетку 15x15
+    const size = 15;
+    let grid = Array(size).fill(null).map(() => Array(size).fill(null));
+    let numbers = Array(size).fill(null).map(() => Array(size).fill(null));
+
+    // Номер для подсказок
+    let clueNum = 1;
+
+    // Функция для размещения слова в сетке
+    function placeWord(word, x, y, dir) {
+      const cells = [];
+      for (let i = 0; i < word.length; i++) {
+        let cx = x + (dir === 'h' ? i : 0);
+        let cy = y + (dir === 'v' ? i : 0);
+        if (cx < size && cy < size) {
+          if (grid[cy][cx] === null || grid[cy][cx] === word[i]) {
+            grid[cy][cx] = word[i];
+            cells.push({ x: cx, y: cy });
+          } else {
+            console.warn(`Конфликт на (${cx}, ${cy})`);
+          }
+        }
+      }
+
+      // Присваиваем номер первой клетке слова, если ещё не занят
+      if (cells.length > 0 && numbers[cells[0].y][cells[0].x] === null) {
+        numbers[cells[0].y][cells[0].x] = clueNum++;
+      }
+    }
+
+    // Размещаем слова
+    // Горизонтальные
+    placeWord("ДЕДМОРОЗ", 0, 0, "h");
+    placeWord("ХЛОПУШКИ", 3, 3, "h");
+    placeWord("ПРАЗДНИК", 1, 5, "h");
+    placeWord("ЕЛКА", 6, 7, "h");
+    placeWord("СНЕГ", 2, 9, "h");
+    placeWord("САЛЮТ", 5, 11, "h");
+    placeWord("СНЕГУРОЧКА", 0, 13, "h");
+
+    // Вертикальные
+    placeWord("БОЙКУРАНТОВ", 0, 0, "v"); // пересекается с "ДЕДМОРОЗ"
+    placeWord("ГИРЛЯНДА", 2, 0, "v");
+    placeWord("ПОДАРКИ", 4, 0, "v");
+
+    // Отображаем сетку
+    const gridEl = document.getElementById("crosswordGrid");
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        if (grid[y][x] === null) {
+          cell.classList.add("black");
+        } else {
+          cell.textContent = grid[y][x];
+          if (numbers[y][x] !== null) {
+            const numSpan = document.createElement("span");
+            numSpan.className = "number";
+            numSpan.textContent = numbers[y][x];
+            cell.appendChild(numSpan);
+          }
+        }
+        gridEl.appendChild(cell);
+      }
+    }
+  </script>
+</body>
+</html>
