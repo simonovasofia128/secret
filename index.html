@@ -1,43 +1,197 @@
-<|DOCTYPE html>
-<html>
-<head> 
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-<title>Мой блог</title><link type="text/css" rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Мой блог</title>
-  </head>
-  <body> 
-   <h2> 19 января , 2026</h2>
-   а.АПЕЛЬСИН-САЦЬНВЩЮ,k17
-   б.АБРИКОС-ЫЬЛГЕЙМ,k27
-   а.ФХНЧКЗ-ПРИВЕТ,k5
-   б.ЦЩЕБФ-ВЕСНА,k20  
-    БЫЧКОВА-КЕБФШЛЙ
-    <blockquote class="q">Путешествие в тысячу миль начинается с одного шага (Лао Цзы) </blockquote>
-    <h2> 14 января , 2025</h2>
-<a href="mailto:mari.bychkova.10@internet.ru">напишите мне</a>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <style>
+    /* Глобальные стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <p>доменное имя моего сайта-maria23-10.github.io . </p>
-    
-    <h2> 20 декабря , 2025</h2>
-  
-    <p>Поздравление с Рождеством читайте <a href="kolyadka2.odt"> здесь.</a></p>
-    <video width="600" height="360" controls>
-      <source src="new.mp4" type="video/mp4">
-      Ваш браузер не поддерживает видео.
-    </video>
-    
-    <h2> 01 декабря , 2025</h2>
-<img src="Icons/ginger-man.png" alt="Новый год">
-Поздравление с Наступающим 2026 годом читайте <a href="Congratulations2026.html"> здесь.</a>
-<h2> 15 октября , 2025</h2>
-<p>
-Я сделала Новогодние кроссворды для сайта <a href=“http://evelina09-16.github.io/dem.gihub.io/”  title=“Блог моего друга”Сайт моего друга</a>
-</p>
-<h2> 1 сентября , 2025</h2>
-<blockquote>Путешествие в тысячу миль начинается с одного шага (Лао Цзы) </blockquote>
-<p>
-Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.
-</p>
-<p><a href="https://www.flaticon.com/ru/free-icons/" title="рождество иконки">Рождество иконки от Pixelmeetup - Flaticon</a></p>
- </body>
- </html>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffafbd, #ffc3a0, #d4fc79, #96e6a1);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #2c2c2c;
+      position: relative;
+      min-height: 100vh;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #4b2e83;
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.7);
+      font-size: 1.8rem;
+    }
+
+    p, a, blockquote {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: #d32f2f;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #b71c1c;
+      text-decoration: underline;
+    }
+
+    blockquote {
+      font-style: italic;
+      padding: 1rem;
+      border-left: 4px solid #ff6b6b;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+
+    video {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin: 1rem 0;
+    }
+
+    img {
+      max-width: 100px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    /* Анимированные элементы: сердечки и звёздочки */
+    .decoration {
+      position: fixed;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart, .star {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .heart {
+      color: #ff6b6b;
+    }
+
+    .star {
+      color: #ffd700;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Декоративные элементы -->
+  <div class="decoration" id="decoration"></div>
+
+  <h2>19 января, 2026</h2>
+  <p>а. АПЕЛЬСИН → САЦЬНВЩЮ, k = 17</p>
+  <p>б. АБРИКОС → ЫЬЛГЕЙМ, k = 27</p>
+  <p>а. ФХНЗКЧ → ПРИВЕТ, k = 5</p>
+  <p>б. ЦЩЕБФ → ВЕСНА, k = 20</p>
+  <p>Фамилия «БЫЧКОВА» зашифрована с ключом 10: <strong>КЕБФШЛЙ</strong></p>
+
+  <blockquote class="q">Путешествие в тысячу миль начинается с одного шага (Лао Цзы)</blockquote>
+
+  <h2>14 января, 2025</h2>
+  <p><a href="mailto:mari.bychkova.10@internet.ru">напишите мне</a></p>
+  <p>Доменное имя моего сайта: <code>maria23-10.github.io</code>.</p>
+
+  <h2>20 декабря, 2025</h2>
+  <p>Поздравление с Рождеством читайте <a href="kolyadka2.odt">здесь</a>.</p>
+  <video width="600" height="360" controls>
+    <source src="new.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+
+  <h2>01 декабря, 2025</h2>
+  <img src="Icons/ginger-man.png" alt="Новый год">
+  <p>Поздравление с Наступающим 2026 годом читайте <a href="Congratulations2026.html">здесь</a>.</p>
+
+  <h2>15 октября, 2025</h2>
+  <p>
+    Я сделала Новогодние кроссворды для сайта 
+    <a href="http://evelina09-16.github.io/dem.gihub.io/" title="Блог моего друга">Сайт моего друга</a>.
+  </p>
+
+  <h2>1 сентября, 2025</h2>
+  <blockquote>Путешествие в тысячу миль начинается с одного шага (Лао Цзы)</blockquote>
+  <p>
+    Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.
+  </p>
+  <p>
+    <a href="https://www.flaticon.com/ru/free-icons/" title="рождество иконки">
+      Рождество иконки от Pixelmeetup - Flaticon
+    </a>
+  </p>
+
+  <script>
+    // Генерация плавающих сердечек и звёздочек
+    const decoration = document.getElementById('decoration');
+    const symbols = ['❤️', '🌟', '✨', '💖', '⭐'];
+    const colors = ['#ff6b6b', '#ffd700', '#4fc3f7', '#ba68c8', '#69f0ae'];
+
+    function createFloatingElement() {
+      const el = document.createElement('div');
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      const isHeart = symbol.includes('❤') || symbol.includes('💖');
+      
+      el.className = isHeart ? 'heart' : 'star';
+      el.textContent = symbol;
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (8 + Math.random() * 12) + 's';
+      el.style.fontSize = (16 + Math.random() * 20) + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+      decoration.appendChild(el);
+
+      // Удаляем элемент после завершения анимации
+      setTimeout(() => {
+        el.remove();
+      }, 20000);
+    }
+
+    // Создаём новые элементы каждые 300–600 мс
+    setInterval(createFloatingElement, 400);
+  </script>
+</body>
+</html>
