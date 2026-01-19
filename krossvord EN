@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Year Crossword</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #0a3d15, #1d5b2a);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255,215,0,0.7);
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .crossword {
+      background-color: #0f2a0f;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(15, 30px);
+      grid-template-rows: repeat(15, 30px);
+      gap: 1px;
+      margin: 0 auto;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background: #1a471a;
+      border: 1px solid #4caf50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: relative;
+      color: white;
+    }
+    .cell.black {
+      background: #000;
+    }
+    .cell .number {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 10px;
+      color: #ffd700;
+    }
+    .clues {
+      background-color: #0f2a0f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      max-width: 350px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    .clues h2 {
+      color: #ffd700;
+      margin-top: 0;
+    }
+    .clue {
+      margin: 8px 0;
+    }
+    .clue-number {
+      display: inline-block;
+      width: 20px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎄 New Year Crossword 🎄</h1>
+  <div class="container">
+    <div class="crossword">
+      <div class="grid" id="crosswordGrid"></div>
+    </div>
+    <div class="clues">
+      <h2>Across:</h2>
+      <div class="clue"><span class="clue-number">1.</span> Main Christmas character in red suit with a sack</div>
+      <div class="clue"><span class="clue-number">4.</span> Fun party items that go "pop!"</div>
+      <div class="clue"><span class="clue-number">6.</span> Season of joy, gifts, and celebrations</div>
+      <div class="clue"><span class="clue-number">8.</span> Evergreen decorated with lights and ornaments</div>
+      <div class="clue"><span class="clue-number">9.</span> White winter precipitation</div>
+      <div class="clue"><span class="clue-number">11.</span> Colorful explosions in the sky at midnight</div>
+      <div class="clue"><span class="clue-number">13.</span> Frosty figure built from snow</div>
+
+      <h2>Down:</h2>
+      <div class="clue"><span class="clue-number">1.</span> Final seconds before the New Year (e.g., "10, 9, 8...")</div>
+      <div class="clue"><span class="clue-number">2.</span> String of lights or decorative chain for the tree</div>
+      <div class="clue"><span class="clue-number">3.</span> Presents placed under the tree</div>
+    </div>
+  </div>
+
+  <script>
+    // Create empty 15x15 grid
+    const size = 15;
+    let grid = Array(size).fill(null).map(() => Array(size).fill(null));
+    let numbers = Array(size).fill(null).map(() => Array(size).fill(null));
+    let clueNum = 1;
+
+    // Helper to place word
+    function placeWord(word, x, y, dir) {
+      const cells = [];
+      for (let i = 0; i < word.length; i++) {
+        const cx = x + (dir === 'h' ? i : 0);
+        const cy = y + (dir === 'v' ? i : 0);
+        if (cx < size && cy < size) {
+          if (grid[cy][cx] === null || grid[cy][cx] === word[i]) {
+            grid[cy][cx] = word[i];
+            cells.push({ x: cx, y: cy });
+          }
+        }
+      }
+      if (cells.length > 0 && numbers[cells[0].y][cells[0].x] === null) {
+        numbers[cells[0].y][cells[0].x] = clueNum++;
+      }
+    }
+
+    // Place words (all uppercase, no spaces)
+    // Across
+    placeWord("SANTA", 0, 0, "h");
+    placeWord("POPPERS", 3, 3, "h");
+    placeWord("HOLIDAY", 1, 5, "h");
+    placeWord("TREE", 6, 7, "h");
+    placeWord("SNOW", 2, 9, "h");
+    placeWord("FIREWORKS", 5, 11, "h");
+    placeWord("SNOWMAN", 0, 13, "h");
+
+    // Down
+    placeWord("COUNTDOWN", 0, 0, "v"); // intersects with SANTA at 'S'
+    placeWord("GARLAND", 2, 0, "v");
+    placeWord("GIFTS", 4, 0, "v");
+
+    // Render grid
+    const gridEl = document.getElementById("crosswordGrid");
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        if (grid[y][x] === null) {
+          cell.classList.add("black");
+        } else {
+          cell.textContent = grid[y][x];
+          if (numbers[y][x] !== null) {
+            const numSpan = document.createElement("span");
+            numSpan.className = "number";
+            numSpan.textContent = numbers[y][x];
+            cell.appendChild(numSpan);
+          }
+        }
+        gridEl.appendChild(cell);
+      }
+    }
+  </script>
+</body>
+</html>
